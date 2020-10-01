@@ -1,0 +1,114 @@
+<html>
+	<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8" />
+		<title>HaitaoSoft</title></head>
+<body>
+
+<table id=tbframe height=100% width=100%><tr height=100%><td width=200 bgcolor=#e0d0f0 valign="top">
+</td><td width=* bgcolor=#e0f0d0>
+</td></tr></table>
+
+<script language="JavaScript" type="text/javascript"><!--
+
+function getQueryStringRegExp(name)
+{
+	var reg = new RegExp("(^|\\\\?|&)"+ name +"=([^&]*)(\\\\s|&|$)", "i");  
+	if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+};
+
+
+var me="haitaoSoft 你懂的 163.com"
++"<a href=http://bplaced.net/ target=_blank>Thanks to bplaced.net</a> "
++"<br><a href=http://appinn.com target=_blank>感谢appinn.com提供的空间</a> "
++"<a href=http://www.orgw.net/ target=_blank>Thanks to iFastHost</a> "
+;
+
+function ob(l,s)		//outbody
+{
+	var h='<br><br><img border=0 src=config/';
+	var jr=" (需要 右键另存为 xxx.rar 才能解压缩使用)";
+	document.getElementById( "tbframe").rows[0].cells[1].innerHTML = 
+	'<a href=config/'+l+'.rar.jpg title="点击下载rar文件'+jr+'" > 点击下载： '+s+jr+h+l+'.gif>'
+	+h+l+'2.gif>'
+	+h+l+'.jpg>'
+	+h+l+'2.jpg>'
+	+"</a><hr>"+me //+'<br><img src=http://211.162.123.246:443/cgi/iscount.dll?cuser='+l+'&ip=0 >'
+	+'<br><img border="0" alt="app hit counter" src="http://haitaosite.cn/count/?w=haitaosoft.'+l+'">'
+	;
+var imgs = document.images;
+for(var i = 0;i < imgs.length;i++){
+imgs[i].onerror = function(){
+this.src = "config/none.gif";
+}
+}
+
+}
+
+var t;
+function ol(l,s)	//outlink(文件名，说明)
+{
+	t=t+'<li><a href=javascript:ob("'+l+'","'+s+'");>'+s+'</a></li>';
+}
+
+
+
+
+t="";//"<ul>";
+ol('photolib','照片批量缩略工具');
+//t=t+'<li>....<a href=config/photolib.htm target=_blank>[纯页面版相册]</a></li>';
+t=t+'<li>....<a href=/suzhou/  target=_blank>苏州园林 相片册</a></li>';
+t=t+'<li>....<a href=/gd4parks/  target=_blank>广东名园 相片册</a></li>';
+t=t+'<li>....<a href=/shenzhen/  target=_blank>深圳景点 相片册</a></li>';
+ol('videoconv','视频批量压缩工具');
+ol('mytree','层次记事本');
+t=t+'<li>....自动生成树型、脑图：</a></li>';
+t=t+'<li>....<a href=http://47.107.139.58/doc/mytree2gaozhongtree.html target=_blank>高考学习内容（树型）</a></li>';
+t=t+'<li>....<a href=http://47.107.139.58/doc/mytree2gaozhongmind.html target=_blank>高考学习内容（脑图）</a></li>';
+t=t+'<li>....<a href=http://haitaosite.cn/go/?u=/doc/gaokao2JStree.html target=_blank>大学专业及选择指南</a></li>';
+//t=t+'<li>....<a href=https://haitao.appinn.me/config/mytree2gaozhong.html target=_blank>自动生成的树型页面</a></li>';
+//t=t+'<li>....<a href=https://haitao.appinn.me/config/mytree2gaozhongmind.html target=_blank>自动生成的脑图页面</a></li>';
+ol('passtool','系列密码生成工具');
+t=t+'<li>....<a href=/mypass/ target=_blank>[网页版]</a></li>';
+ol('clipy','剪贴板自动重用');
+ol('tastack','电脑任务切换记录工具');
+ol('delphiscript','脚本化delphi（动态加载外部pas+dfm文件）');
+ol('cutline','文本再加工处理工具');
+ol('dbinfo','sql2005数据字典工具');
+ol('deskt','桌面时间助理');
+ol('dircrc','目录文件查询工具');
+ol('dirtree','目录打包工具');
+ol('flow','流程设计工具');
+ol('htgift','摇奖工具');
+ol('jiamipub','加密工具');
+ol('photofs','标签式照片管理工具');
+ol('renpin','通用自我测试工具');
+ol('sql2ide','sql-程序格式互转工具');
+ol('sqlformat','sql格式化工具');
+ol('time','系统时间同步工具');
+ol('workday','排班日期检查工具');
+ol('busline','深圳公交线路票价查询');
+
+var tbl = document.getElementById( "tbframe"); 
+tbl.rows[0].cells[0].innerHTML = t
++'<hr><a href="http://pan.baidu.com/s/1pJmC9wJ#path=%252Fappwin32" target=_blank>[如果无法下载，请到云盘]</a>'
++'<hr><a href=config/sudu.htm target=_blank>[数独助手]</a>'
++'<hr><a href=http://118.89.115.192/  target=_blank>[上海主机镜像]</a>'
++'<hr><a href=http://47.107.139.58/  target=_blank>[深圳主机镜像]</a>'
++'<hr><a href=http://haitaosite.cn  target=_blank>[haitaosite.cn]</a>'
++'<hr><a href=http://haitaosite.bplaced.net  target=_blank>[德国主机镜像]</a>'
++'<hr><a href=http://haitao.appinn.me  target=_blank>[appinn.me镜像]</a>'
++'<hr><a href=http://szhaitao.orgw.net/  target=_blank>[国外orgw.net主机镜像]</a>'
++'<hr><img border="0" alt="web site hit counter" src="http://haitaosite.cn/count/?w=home">'
+;
+
+tbl.rows[0].cells[1].innerHTML = me 
+;
+
+var app=getQueryStringRegExp('app');
+if (app!="") ob(app,"auto");
+
+//-->
+</script>
+
+</body>
+</html>
