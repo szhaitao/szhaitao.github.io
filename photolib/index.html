@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta name="keywords" content="相册,缩略图,浏览,photo,cms" >
+<meta name="description" content="网络相册,快捷浏览,mini cms" >
+<meta name="robots" content="all" >
+<meta name="googlebot" content="all" >
+<meta name="baiduspider" content="all" >
+<title>PhotoLib-通用相册模板</title>
+
+<style>
+.dleft{
+ position: absolute;
+ left:0px; top:0px;
+ float: left;
+ width: 0px; 
+ height: 0px;
+ border-width: 40px;
+ border-style: solid;
+ border-color: transparent #00aaCC transparent transparent;
+}
+.d2{
+ position: absolute;
+ left:81px; top:0px;
+ width: 0px; 
+ height: 0px;
+ border-width: 40px;
+ border-style: solid;
+ border-color:#FFCCCC #0099CC #996699 #339933;
+}
+.dright{
+ position: absolute;
+ left:162px; top:0px;
+ float: left;
+ width: 0px; 
+ height: 0px;
+ border-width: 40px;
+ border-style: solid;
+ border-color: transparent transparent transparent #9999CC;
+}
+</style>
+
+<script type="text/javascript" >
+<!--
+//作者：http://haitao.appinn.me  http://haitaosite.cn  http://szhaitao.orgw.net  http://haitaosite.bplaced.net
+
+var imgs=new Array();	
+function isNull(arg1)
+{
+	return !arg1 && arg1!==0 && typeof arg1!=="boolean"?true:false;
+}
+ 
+function getarg(name) { 
+var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+var r = window.location.search.substr(1).match(reg); 
+if (r != null) return decodeURIComponent(r[2]); return null;
+}
+
+var shtml="";
+function ln()
+{
+	shtml=shtml+"<br>";
+}
+function w(s)
+{
+  shtml=shtml+s;
+}
+function wln(s)
+{
+  shtml=shtml+s;
+  ln();
+}
+
+function sethtml(o)
+{
+  document.getElementById(o).innerHTML=shtml;
+}
+
+var urlcount='http://haitaosite.cn/count/?w=photo';
+
+
+var title=getarg("title");
+var dir=""; var dirname="";
+var photodirs=getarg("dirlist");
+var dirnames=getarg("namelist");
+
+
+
+function loadjs(url,callback){
+ var script=document.createElement('script');
+ script.type="text/javascript";
+ if(typeof(callback)!="undefined"){
+ if(script.readyState){
+ script.onreadystatechange=function(){
+  if(script.readyState == "loaded" || script.readyState == "complete"){
+  script.onreadystatechange=null;
+  callback();
+  }
+ }
+ }else{
+ script.onload=function(){
+  callback();
+ }
+ }
+ }
+ script.src=url;
+ document.body.appendChild(script);
+ }
+
+
+function listsmall()
+{
+  outlist(0);
+  document.getElementById('curdir').innerHTML='正在浏览：'+dirname;
+}
+
+function showlist(sdir,n)
+{
+  dir=sdir;
+  dirname=n;
+  imgs.length=0;
+  curp=-1;
+  loadjs(dir+"/photolib.js",listsmall);
+}
+
+
+
+
+var selfurl=location.pathname;
+
+
+function showimg(img)	{
+	if (1==tosmall)
+	{	oldw=img.width;
+		if (img.width>ww)
+		{
+			if (img.height*ww/img.width>hh)
+			{	img.width=oldw*hh/img.height;
+			}
+			else
+				img.width=ww;
+		}
+		else
+		if (img.height>hh)
+		{
+			if (img.width*hh/img.height>ww)
+			{	img.width=oldw*ww/img.height;
+			}
+			else
+				img.width=hh/img.height*oldw;
+		}
+			
+		tosmall=0;
+	}
+	else
+	{	img.width=oldw;
+		tosmall=1;
+	}
+}
+
+var dx='25px'; var dy='35px'; var dx1='200px'; var dy1='95px';
+var divxy='<div id="divMessage" name="divgo" style="position: fixed;width:245px;height:80px;top: '+dy+'px;right: '+dx+'px;z-index: 100;">'
++'<div class="dleft" title=显示前一张 onclick="gonext(-1)"></div>'
++'<div class="dright" title=显示后一张 onclick="gonext(1)"></div>'
++'<div class="d2" title=切换本图标位置 onclick="newxy()"></div>'
++'</div>';
+function rexy()
+{
+var v=divMessage.style;
+if (xy==0) { v.left=dx1; v.right=''; v.top=dy1; v.bottom=''; }
+if (xy==1) { v.left='';  v.right=dx; v.top=dy1; v.bottom=''; }
+if (xy==2) { v.left='';  v.right=dx; v.top='';  v.bottom=dy; }
+if (xy==3) { v.left=dx1; v.right=''; v.top='';  v.bottom=dy; }
+}
+function newxy()
+{
+++xy;
+if (xy>3) xy=0;
+rexy();
+}
+
+
+
+function showright(u)
+{  curp=u;
+
+shtml='';
+ww=document.documentElement.clientWidth-15-181;	oldw=0; 	
+tosmall=1;
+hh=document.documentElement.clientHeight-15-55;
+		var timg=imgs[u];
+		var uc;
+if (dirmode != "1")
+{ uc=timg.substring(8);
+  aurl=dir+'/../'+uc;
+}
+else
+{ uc=timg;
+  aurl=dir+'/'+uc;
+}
+
+
+shtml='';
+w(divxy);
+var ti=u; ++ti;
+w('<img src='+aurl+' onload="showimg(this);" onClick="showimg(this);" title="点击图片：按原始大小观看"><br><img border="0" src="'+urlcount+dir+'/'+uc+'"> '+ti+'/'+imgs.length+'</body>');
+sethtml('right');
+  
+rexy();
+
+}
+
+function gonext(u)
+{ if (curp*1+u<0)  return;
+  if (curp*1+u>=imgs.length) return;
+	showright(curp*1+u);
+}
+
+
+curp=-1;
+
+function showsmall(u)
+{
+	return "href=javascript:showright('"+u+"');";
+}
+
+
+
+
+
+function outlist(p){
+  var pn=20;
+	var n=imgs.length;
+  if(!n) n=0; 
+		
+	var s="共"+n+"张 \n";
+	if (n>0)
+	{
+	var t="";
+	if (n>pn)
+	{
+    for (i=0; i<=parseInt((n-1)/pn); i++)
+      if (i==p)
+        t=t+ " ["+(i+1)+"]";
+      else
+        t=t+ " <a href=javascript:outlist("+i+");>["+(i+1)+"]</a>";
+    t=t+"<br>\n";
+	}
+  s=s+t+"<hr>\n";
+	for (i=pn*p; i<pn*(p+1); i++)
+	{
+    if (i>=n) break;    
+		s=s+ ((i+1)+"/"+n+":<br><a "+showsmall(i)+"><img src='"+dir+"/s/"+imgs[i]+"' border=0></a><hr>\n");
+	}
+	}
+	document.getElementById('left').innerHTML = s+t
+	  +'<br><img border="0" src="'+urlcount+dir+'">';
+
+}
+
+
+var xy=1; var curp=-1; var dirmode=getarg("dirmode");
+var root=getarg("root");
+
+if(window.top==window.self) document.title=title;
+else parent.document.title=title;
+
+
+
+//-->
+</script>
+</head>
+<body bgcolor=#FFFFFF text=#000000>
+
+<div id="top" style="margin:0px; padding:2px; position:fixed; left:0px; top:0px; right:0px; height:55px; border:1px solid #7F7;overflow:auto;background:#ddd;" ></div>
+<div id="left" style="margin:0px; padding:2px; position:fixed; left:0px; top:56px; width:180px; bottom:0px; border:1px solid #F88;overflow-y:auto;background:#ede;" >
+  请先在上面选择图库目录。。。
+</div>
+<div id="right" style="margin:0px; padding:2px; position:fixed; left:183px; top:56px; right:0px; bottom:0px; border:1px solid #77F;overflow:auto;background:#eed;" >
+  请先在上面选择图库目录，左边会显示对应的缩略图列表，<br>再点击左边列表里的小图，这里会显示对应的大图，<br>点击大图则 切换到 原始大小 或 全部显示
+</div>
+
+<script type="text/javascript" >
+<!--
+function otherserver(s,n)
+{ if (location.protocol+'//'+location.host==s)
+    return "["+n+"]";
+  return "[<a href='"+s+window.location.pathname+window.location.search+"'>"+n+"</a>]";
+}
+shtml="";
+		w("<center><b>"+title+"</b> &nbsp; <img border='0' src='"+urlcount+root+"'> &nbsp; （<b><span id=curdir>点击下面链接 选择图库目录</span></b> ，切换服务器："
+		  +otherserver('http://118.89.115.192','上海')+otherserver('http://47.107.139.58','深圳')+otherserver('http://haitaosite.cn','德国')+"）<br>");
+		var nms=dirnames;
+		var links=photodirs;
+		var qs = links.split('|');
+		var ns=nms.split('|');
+		if (ns.length!=qs.length) ns=qs;
+		if (qs) {
+			for (var i=0;i<qs.length;i++) {
+				w('<a href=javascript:showlist(\''+root+qs[i]+'\',\''+ns[i]+'\'); >'+ns[i]+'</a> &nbsp; ');
+			}
+		}
+		w("</center>");
+sethtml('top');
+ 
+
+//-->
+</script>
+
+</body>
