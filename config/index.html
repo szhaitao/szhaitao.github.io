@@ -1,0 +1,109 @@
+<html>
+	<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+		<title>HaitaoSoft</title></head>
+<body>
+
+<table id=tbframe height=100% width=100%><tr height=100%><td width=200 bgcolor=#e0d0f0>
+</td><td width=* bgcolor=#e0f0d0>
+</td></tr></table>
+
+<script language="JavaScript" type="text/javascript"><!--
+
+function getQueryStringRegExp(name)
+{
+	var reg = new RegExp("(^|\\\\?|&)"+ name +"=([^&]*)(\\\\s|&|$)", "i");  
+	if (reg.test(location.href)) return unescape(RegExp.$2.replace(/\+/g, " ")); return "";
+};
+
+
+var me="haitaoSoft 你懂的 163.com"
++"<br><a href=http://szhaitao.blog.hexun.com/9317448_d.html>http://szhaitao.blog.hexun.com/9317448_d.html</a>"
+//+"<br><a href=http://211.162.123.246:443/httpdisk/haitaosoft/>http://211.162.123.246:443/httpdisk/haitaosoft/</a>"
++"<br><a href=http://appinn.com>感谢appinn.com提供的空间</a>"
+;
+
+function ob(l,s)		//outbody
+{
+	var h='<br><br><img border=0 src=config/';
+	//alert(l+s);
+	document.getElementById( "tbframe").rows[0].cells[1].innerHTML = 
+	'<a href=config/'+l+'.rar title=点击下载 > 点击下载： '+s+h+l+'.gif>'
+	+h+l+'2.gif>'
+	+h+l+'.jpg>'
+	+h+l+'2.jpg>'
+	+"<hr>"+me //+'<br><img src=http://211.162.123.246:443/cgi/iscount.dll?cuser='+l+'&ip=0 >'
+	;
+//var n=0;
+var imgs = document.images;
+for(var i = 0;i < imgs.length;i++){
+imgs[i].onerror = function(){
+this.src = "config/none.gif";
+//n++;
+}
+}
+
+//alert(n);
+
+}
+
+var t;
+function ol(l,s)	//outlink(文件名，说明)
+{
+	//document.writeln('<a href=javascript:ob("'+l+'","'+s+'");>'+s+'</a>');
+	t=t+'<li><a href=javascript:ob("'+l+'","'+s+'");>'+s+'</a></li>';
+}
+
+
+
+
+t="";//"<ul>";
+ol('delphiscript','脚本化delphi（动态加载外部pas+dfm文件）');
+ol('photolib','照片批量缩略工具');
+ol('passtool','系列密码生成工具');
+ol('tastack','电脑任务切换记录工具');
+ol('clipy','剪贴板自动重用');
+ol('cutline','文本再加工处理工具');
+ol('dbinfo','sql2005数据字典工具');
+ol('deskt','桌面时间助理');
+ol('dircrc','目录文件查询工具');
+ol('dirtree','目录打包工具');
+ol('flow','流程设计工具');
+ol('htgift','摇奖工具');
+ol('jiamipub','加密工具');
+ol('mytree','层次记事本');
+ol('photofs','标签式照片管理工具');
+ol('renpin','通用自我测试工具');
+ol('sql2ide','sql-程序格式互转工具');
+ol('sqlformat','sql格式化工具');
+ol('time','系统时间同步工具');
+ol('workday','排班日期检查工具');
+ol('busline','深圳公交线路票价查询');
+//t=t+'</ul>';
+//alert(s);
+
+var tbl = document.getElementById( "tbframe"); 
+tbl.rows[0].cells[0].innerHTML = t
++'<hr><a href=config/photolib.htm target=_blank>[纯页面版相册]</a>'
++'<hr><a href=config/sudu.htm target=_blank>[数独助手]</a>'
++'<hr><a href=/cc/roomlist.php target=_blank>[中国象棋]</a>'
+//+'<hr><a href=http://211.162.123.246:443/httpdisk/haitaosoft/  target=_blank>[中国大陆镜像]</a>'
+//+'<br><a href=http://xq.com.nu  target=_blank>[国外主机镜像]</a>'
++'<hr><img border="0" alt="web site hit counter" src="http://mycounter.tinycounter.com/index.php?user=haitao">'
++'<br><img alt="图片计数器" src="http://c3.gostats.cn/bin/count/a_360959/t_3/i_97/counter.png" style="border-width:0" />';
+
+tbl.rows[0].cells[1].innerHTML = me //+'<br><img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=haitaoapp&ip=0 >'
+;
+
+var app=getQueryStringRegExp('app');
+if (app!="") ob(app,"auto");
+
+//-->
+</script>
+<!-- GoStats JavaScript Based Code --><script type="text/javascript" src="http://gostats.cn/js/counter.js"></script><script type="text/javascript">_gos='c3.gostats.cn';_goa=360959;_got=3;_goi=97;_gol='图片计数器';_GoStatsRun();</script><!-- End GoStats JavaScript Based Code -->
+<!-- start http://www.2881.com 
+< 1script src="http://count.2881.com/count/count.asp?id=19018&sx=1&ys=43" language="JavaScript" charset="gb2312">< / 1script>
+ Powered by http://www.2881.com -->
+
+</body>
+</html>

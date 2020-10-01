@@ -1,0 +1,385 @@
+<html>
+<head><title>数独助手 http://126.am/haitao</title>
+<SCRIPT LANGUAGE="JavaScript">
+<!--//
+
+function div(a,b){  return (a-a%b)/b; }
+
+function trim(s){	return s.replace(/(^\s*)|(\s*$)/g, "");}
+
+function tbsetrn(tb,r,c,n)
+{
+	var p,i,j,w;
+	p=document.getElementById(tb);
+	p=p.getElementsByTagName("tbody")[0];
+	p.rows[r].cells[c].rowSpan=n;
+	w=p.rows[r].cells[c].colSpan;
+	for (i=1; i<n; i++)
+		for (j=0; j<w; j++)
+			p.rows[r+i].cells[c+j].style.display="none";
+}
+function tbsetcn(tb,r,c,n)
+{
+	var p,i,j,w;
+	p=document.getElementById(tb);
+	p=p.getElementsByTagName("tbody")[0];
+	p.rows[r].cells[c].colSpan=n;
+	w=p.rows[r].cells[c].rowSpan;
+	for (i=1; i<n; i++)
+		for (j=0; j<w; j++)
+			p.rows[r+j].cells[c+i].style.display="none";
+}
+function tdsetstr(tb,r,c,s)
+{
+	var p;
+	p=document.getElementById(tb);
+	p=p.getElementsByTagName("tbody")[0];
+	p.rows[r].cells[c].innerHTML=s;
+}
+function tbset(tb,r,c,rn,cn,s)
+{
+	var t,p,i,j,w;
+	t=document.getElementById(tb);
+	t=t.getElementsByTagName("tbody")[0];
+	p=t.rows[r].cells[c];
+	p.colSpan=cn;
+	p.rowSpan=rn;
+	for (i=0; i<cn; i++)
+		for (j=0; j<rn; j++)
+			if (i!=0 || j!=0)
+				t.rows[r+j].cells[c+i].style.display="none";
+	p.innerHTML=s;
+}
+
+function bgc3(x,y){ return('rgb('+55*(1+x)+','+44*(4-x)+','+66*(1+y)+')');}
+
+function useit(id,x)
+{
+	var o,f,p;
+	f='tbb'+id.substr(3,3);
+	p=document.getElementById(f);
+	p=p.getElementsByTagName("tbody")[0];
+	p=p.rows[id.charAt(8)*1].cells[1*id.charAt(10)];
+	o=p.innerHTML;
+	tbset(id,0,0,3,3,'<br><font size=+1><b><a href=javascript:freeit("'+id+'",'+x+'); >'+x+'</a></b></font><br>&nbsp;');	//'{'+x+'}');<center></center><valign="middle"></valign>
+	if (reset9()!=0)
+		p.innerHTML=o;
+	else
+	{
+		p=document.getElementById(id);
+		p=p.getElementsByTagName("tbody")[0];
+		p.style.backgroundColor='#aaffaa';
+	}
+}
+function freeit(id,x)
+{
+	tbsetrn(id,0,0,1);
+	tbsetcn(id,0,0,1);
+	var f,p,box,i,j,i2,j2,i3,j3,s;
+	for (i=0; i<3; i++)
+    for (j=0; j<3; j++)
+			for (i2=0; i2<3; i2++)
+		    for (j2=0; j2<3; j2++)
+		    {
+		    	id='tbc'+i+'_'+j+'__'+i2+'_'+j2;
+		    	p=document.getElementById(id);
+		    	p=p.getElementsByTagName("tbody")[0];
+					if (p.rows[0].cells[0].rowSpan==3)
+		    		continue;
+		    	box=('<table cellspacing="0" border="0" id='+id+' style="width:100%;height:100%;background-color:'+bgc3(i,j)+';">');
+					for (i3=0; i3<3; i3++)
+					{	box+=('<tr height=33% valign="middle">');
+					  for (j3=0; j3<3; j3++)
+					  {
+					  	s=(1+j3+3*(i3));
+					  	box+=('<td width=33% align="center"><a href=javascript:useit("'+id+'",'+s+'); >'+s+'</a></td>');
+						}
+					  box+=('</tr>');
+					}
+					box+=('</table>');
+					f='tbb'+id.substr(3,3);
+					p=document.getElementById(f);
+					p=p.getElementsByTagName("tbody")[0];
+					p=p.rows[i2].cells[j2];
+					p.innerHTML=box;
+				}
+	reset9();
+}
+function make81()
+{
+	var box,i,j,i2,j2,i3,j3,s,id;
+	box=('<table cellspacing="0" border="1" id=tba style="width:600;" >');
+	for (i=0; i<3; i++)
+	{
+		box+=('<tr>');
+    for (j=0; j<3; j++)
+    {
+    	box+=('<td width=33%>');
+    	box+=('<table cellspacing="0" border="1" id=tbb'+i+'_'+j+' style="width:100%;">');
+			for (i2=0; i2<3; i2++)
+			{
+				box+=('<tr>');
+		    for (j2=0; j2<3; j2++)
+		    {
+		    	box+=('<td width=33%>');
+		    	id='tbc'+i+'_'+j+'__'+i2+'_'+j2;
+					box+=('<table cellspacing="0" border="0" id='+id+' style="width:100%;height:100%;background-color:'+bgc3(i,j)+';">');
+					for (i3=0; i3<3; i3++)
+					{	box+=('<tr height=33% valign="middle">');
+				    for (j3=0; j3<3; j3++)
+				    {
+				    	s=(1+j3+3*(i3));
+				    	box+=('<td width=33% align="center"><a href=javascript:useit("'+id+'",'+s+'); >'+s+'</a></td>');
+				  	}
+				    box+=('</tr>');
+				  }
+  				box+=('</table></td>');
+  			}
+		    box+=('</tr>');
+		  }
+  		box+=('</table></td>');				  
+  	}
+    box+=('</tr>');
+  }
+  box+=('</table>');
+  document.getElementById('box').innerHTML=box;
+}
+
+function setshow(i,x)
+{ var id,a,b;
+	a=div(i,9);
+	b=i%9;
+	id='tbc'+div(a,3)+'_'+div(b,3)+'__'+(a%3)+'_'+(b%3);
+	tbset(id,0,0,3,3,'<br><font size=+1><b>'+x+'</b></font><br>&nbsp;');
+	a=document.getElementById(id);
+	a.style.backgroundColor='#aaaaaa';
+}
+function check0()
+{
+	var i,j,m,n,p,s,c;
+	
+	c=0;
+	id='tbc'+i+'_'+j+'__'+m+'_'+n;
+	for (i=0; i<3; i++)
+		for (j=0; j<3; j++)
+			for (m=0; m<3; m++)
+				for (n=0; n<3; n++)
+				{
+					p=document.getElementById('tbc'+i+'_'+j+'__'+m+'_'+n);
+					p=p.getElementsByTagName("tbody")[0];
+					if (p.rows[0].cells[0].colSpan==3)
+					{
+						++c;
+						continue;
+					}
+					s=trim(p.innerText);
+					if (s=='')
+					{
+						alert('Error!');
+						return -3;
+					}
+					if (s.length==1)
+						++c;
+					if (s.length==1 && p.style.backgroundColor!='#aaaaaa')
+					{
+						p.style.backgroundColor='#ffaaff';
+					}
+				}
+	if (c==81)
+		alert('恭喜，成功了！');
+	return 0;
+}
+function openit(id,s)
+{
+	var p,o;
+	p=document.getElementById(id);
+	p=p.getElementsByTagName("tbody")[0];
+	p=p.rows[div(s,3)].cells[s%3];
+	o=p.innerHTML;
+	if (p.innerText==1+1*s)
+	{
+		p.innerText=' ';	//'&nbsp;';
+		if (trim(document.getElementById(id).innerText)=='')
+		{
+			alert('Error!');
+			p.innerHTML=o;
+			return -1;
+		}
+	}
+	return 0;
+}
+function reset9()
+{
+	var i,j,i2,j2,k,m,n,id,s,p;
+	for (i=0; i<3; i++)
+		for (j=0; j<3; j++)
+			for (i2=0; i2<3; i2++)
+				for (j2=0; j2<3; j2++)
+				{
+					id='tbc'+i+'_'+j+'__'+i2+'_'+j2;
+					p=document.getElementById(id);
+					p=p.getElementsByTagName("tbody")[0];
+					p=p.rows[0].cells[0];
+					if (p.colSpan!=3)
+						continue;
+					s=p.innerText;
+					s=trim(s)-1;
+
+					for (m=0; m<3; m++)
+						for (n=0; n<3; n++)
+						{
+							if (m!=i2 || n!=j2)
+							{
+								id='tbc'+i+'_'+j+'__'+m+'_'+n;
+								if (openit(id,s)!=0)
+									return -2;
+							}
+
+							if (m!=i || n!=i2)
+							{
+								id='tbc'+m+'_'+j+'__'+n+'_'+j2;
+								if (openit(id,s)!=0)
+									return -2;
+							}
+
+							if (m!=j || n!=j2)
+							{
+								id='tbc'+i+'_'+m+'__'+i2+'_'+n;
+								if (openit(id,s)!=0)
+									return -2;
+							}
+						}
+				}
+	return check0();			
+}
+function init()
+{ var i,s,c,n;
+	make81();
+	s=document.getElementById('game');
+	s=s.value;
+	for (n=0,i=0; i<s.length && n<81; i++)
+  {
+  	c=s.charAt(i);
+    if (c>='0' && c<='9')
+    {
+    	if (c!=0)
+	      setshow(n,c);
+      n++;
+    }
+	}
+   reset9();
+	document.getElementById('jm').innerHTML='<img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=shudujm&ip=0&rnd='+Math.random()+' >';
+}
+//-->
+</SCRIPT>
+</head>
+<body>
+<textarea cols="82" rows="10" id="game">请在这里输入或粘贴数独题目（九x九 个数字），非数字将被忽略
+按“Start”开始游戏：
+也可以不换行全部挨在一起，如下：
+000010905081500000002060018906020403010600009000800001005000030000030000069400002
+或如下：删除前面的数字，则下面的题目（数字）就会生效
+000189207
+030000050
+710653004
+197005043
+283060010
+046001920
+405208009
+008000000
+070046000
+
+
+070000580
+050040060
+000000900
+105030270
+800070410
+240109308
+020697000
+689413000
+013582600
+
+
+870004069
+400200000
+601073200
+204006001
+005801020
+008000030
+000040000
+520007090
+003605000
+
+
+415070000
+008510006
+269000000
+520690030
+090008000
+307400002
+670000000
+051380000
+040000500
+
+
+034800750
+500002984
+000000600
+050000000
+061040009
+200190000
+100078030
+700300006
+002900401
+
+
+000010905
+081500000
+002060018
+906020403
+010600009
+000800001
+005000030
+000030000
+069400002
+
+
+500000000
+000000910
+300400058
+039000000
+850300000
+002010080
+003874600
+000005423
+900206000
+
+
+000000789
+004090000
+000000050
+350010000
+001030094
+006200000
+010300070
+260009008
+049080503
+
+
+000045807
+000070000
+000800410
+000020000
+000030195
+800010003
+020300070
+003700508
+054200000
+</textarea>
+<a href="javascript:init();" >Start!</a><br><center><a href=http://126.am/haitao target=_blank>haitao软件 <img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=shudu&ip=0 ></a></center>
+<div id=box></div> 局面统计：<div id=jm><img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=shudujm&ip=0 ></div>
+<SCRIPT LANGUAGE="JavaScript">make81();
+</SCRIPT>
+</body>
+</html>

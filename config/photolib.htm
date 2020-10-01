@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>海涛照片图库系统（硬盘版）－－http://126.am/haitao</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+</head>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function ln()
+{
+	document.write("<br>");
+}
+function w(s)
+{
+  document.write(s);
+}
+function wln(s)
+{
+  document.write(s+"<br>");
+}
+
+
+
+
+
+//在下面列出你的照片的根目录：
+var root="/config/photolibdemo/";
+//在下面列出你所有的照片目录，以“|”作为分隔符：注意 两端的双引号、单引号 都要保留
+var photodirs="'普吉岛|曾城白水寨'";
+//作者：http://126.am/haitao   http://szhaitao.blog.hexun.com/
+
+
+var selfurl; 
+selfurl=location.href.substr(0,location.href.length-11);
+
+var jsb='<'+'SCRIPT DEFER'+'>';
+var jse='</'+'SCRIPT'+'>';
+
+function insertScript(js)
+{
+	var div=document.createElement("DIV");
+	div.style.display="none";
+	document.body.appendChild(div);
+	var sScript=jsb;
+	sScript += js;
+	sScript += jse;
+	div.insertAdjacentHTML("AfterBegin", "<BR>"+sScript) // <BR>is important
+}
+
+function jssrc(jsurl)
+{
+	var div=document.createElement("DIVsrc");
+	div.style.display="none";
+	document.body.appendChild(div);
+	var sScript='<'+'SCRIPT'+' src='+jsurl+' DEFER>';
+	sScript += jse;
+	div.insertAdjacentHTML("AfterBegin", "<BR>"+sScript) // <BR>is important
+}
+        
+var aframe=location.search.substring(1).split('&')[0];
+if (aframe)
+{
+	if ( aframe == "aframe=top" )
+	{
+		w("<body bgcolor=#FFFFFF text=#000000 leftmargin=5>");
+
+		insertScript('w("<center><!--marquee direction=left behavior=scroll scrollamount=3 scrolldelay=10 align=middle bgcolor=#ffffff onmouseover=this.stop() onmouseout=this.start()-->");'+"var links="+photodirs+";"
+		+"var qs = links.split('|'); if (qs) { for (var i=0;i<qs.length;i++) {"
+		+"w('<a href='+selfurl+'?aframe=left&alink='+root+qs[i]+' target=left>'+qs[i]+'</a> '); } } "+'w("<!--/marquee--><a href=http://211.162.123.246:443/httpdisk/haitaosoft/  target=right><b>[haitao软件]</b></a> <img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=photolibhtml&ip=0 ></center>");');
+		
+		w("</body>");
+	}
+	else
+	if ( aframe == "aframe=left" )
+	{
+		alink=location.search.substring(1).split('&')[1];
+		if (alink)
+		{
+			alink=alink.substr(6);
+			w("<body bgcolor=#FFFFFF text=#000000 leftmargin=5>");
+
+selfurl=location.pathname; //search.substring(1).split('?')[0];
+wln(alink);
+
+			var imgs=new Array();
+
+			jssrc(alink+"/photolib.js");
+
+function showright(u)
+{
+	var t='?aframe=right&aurl="'+alink+'/'+u+'"';
+	//alert(t);
+	window.parent.right.location.href=t;
+}
+function showsmall(u)
+{
+	return "href=javascript:showright('"+u+"');";
+}
+
+			insertScript('function outlist(){\nvar n=imgs.length; if(!n) n=0; wln("共"+n+"张<hr>");'
+			+' 	for (i=0; i<n; i++)\n 		'
+			+'w((i+1)+"/"+n+":<br><a "+showsmall(imgs[i])+"><img src=\\\"'+alink+'/s/"+imgs[i]+"\\\" border=0></a><hr>");\n}\noutlist();');
+//			insertScript('function outlist(){\nvar n=imgs.length; if(!n) n=0; wln("共"+n+"张<hr>"); 	for (i=0; i<n; i++)\n 		w((i+1)+"/"+n+":<br><a href='+/*selfurl+*/'?aframe=right&aurl=\\\"'+alink+'/"+imgs[i]+"\\\" target=right><img src=\\\"'+alink+'/s/"+imgs[i]+"\\\" border=0></a><hr>");\n}\noutlist();');
+
+			w("</body>");
+		}
+		else
+			w("请先在上面选择图库目录。。。");
+	}
+	else
+	{
+var aurl=location.search.substring(1).split('&')[1];
+
+if (!aurl)
+{
+		w("请先在上面选择图库目录，再点击左边的小图。。。");
+wln("<br><br><br><br>作者：<a href=http://szhaitao.blog.hexun.com/>http://szhaitao.blog.hexun.com/</a><hr><img src=photolib.jpg><img src=http://211.162.123.246:443/cgi/iscount.dll?cuser=photolibhtml&ip=0 >");
+}
+else
+{
+aurl=aurl.substr(5);	
+//wln("aaa");
+//wln(aurl);
+wln('<body bgcolor="#FFFFFF" text="#000000" leftmargin="1" topmargin="1">');
+insertScript('	ww=document.body.clientWidth-15;	oldw=0; 	tosmall=1;	function showimg(img)	'
++'{		if (1==tosmall)		{			oldw=img.width;			if (img.width>ww)				img.width=ww;			tosmall=0;'
++'		}		else		{			img.width=oldw;			tosmall=1;		}	}');
+wln('<img src='+aurl+' onload="showimg(this);" onClick="showimg(this);" alt="点击图片：按原始大小观看"></body>');
+	
+}
+
+	}
+}
+else
+{
+	w("<frameset rows=50,*>");
+	w("	<frame name=top src="+this.location.href+"?aframe=top frameborder=2>");
+	w("	<frameset cols=180,*>");
+	w("	<frame name=left src="+this.location.href+"?aframe=left frameborder=1>");
+	w("	<frame name=right src="+this.location.href+"?aframe=right frameborder=1>");
+	w("  </frameset>");
+	w("</frameset><noframes></noframes>");
+}
+//-->
+</SCRIPT>
